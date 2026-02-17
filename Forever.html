@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forever Date</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #b3e5fc;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* Floating Elements */
+.floating {
+    position: fixed;
+    font-size: 20px;
+    animation: floatUp linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(100vh); opacity: 1; }
+    to { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Center Box */
+.center-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    width: 85%;
+    max-width: 380px;
+    padding: 30px 20px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    z-index: 2;
+}
+
+h1 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+h2 {
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* Buttons */
+button {
+    padding: 14px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    min-width: 110px;
+}
+
+.button-container {
+    position: relative;
+    height: 120px;
+}
+
+/* YES */
+#yesBtn {
+    background: yellow;
+    color: black;
+    border: none;
+    position: absolute;
+    left: 20%;
+    top: 40px;
+}
+
+/* NO */
+#noBtn {
+    background: #b3e5fc;
+    color: black;
+    border: none;
+    position: absolute;
+    right: 20%;
+    top: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="center-box">
+    <h1>ARE YOU WILLING TO BE MY</h1>
+    <h2>FOREVER DATE?</h2>
+
+    <div class="button-container">
+        <button id="yesBtn">YES</button>
+        <button id="noBtn">NO</button>
+    </div>
+</div>
+
+<script>
+/* Floating Sunflowers + Hearts */
+for (let i = 0; i < 20; i++) {
+    let element = document.createElement("div");
+    element.className = "floating";
+    element.innerHTML = Math.random() > 0.5 ? "🌻" : "💕";
+    element.style.left = Math.random() * 100 + "vw";
+    element.style.animationDuration = (6 + Math.random() * 6) + "s";
+    document.body.appendChild(element);
+}
+
+/* YES Moves */
+const yesBtn = document.getElementById("yesBtn");
+const container = document.querySelector(".button-container");
+
+function moveYes() {
+    const maxX = container.clientWidth - yesBtn.clientWidth;
+    const maxY = container.clientHeight - yesBtn.clientHeight;
+
+    yesBtn.style.left = Math.random() * maxX + "px";
+    yesBtn.style.top = Math.random() * maxY + "px";
+}
+
+yesBtn.addEventListener("click", moveYes);
+yesBtn.addEventListener("touchstart", moveYes);
+
+/* NO → Second Page */
+document.getElementById("noBtn").addEventListener("click", function() {
+    document.body.innerHTML = `
+        <div style="
+            background:#b3e5fc;
+            height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            font-family:Arial;
+        ">
+            <div style="font-size:120px;">💔</div>
+            <h1>I Knew You Would Say "NO"</h1>
+            <button onclick="thirdPage()" style="
+                margin-top:20px;
+                padding:12px 25px;
+                background:white;
+                border:none;
+                border-radius:10px;
+                font-size:16px;
+                cursor:pointer;
+            ">FIX HEART</button>
+        </div>
+    `;
+});
+
+/* Third Page */
+function thirdPage() {
+    document.body.innerHTML = `
+        <div style="
+            background:#ffcccc;
+            height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            font-family:Arial;
+        ">
+            <h1 style="font-size:40px;">ERROR</h1>
+            <p style="font-size:22px;margin:10px;">This Heart Cannot Be Fixed</p>
+            <p style="font-size:22px;margin:5px;"><i>Untill</i></p>
+            <p style="font-size:20px;max-width:300px;">
+                You give 25 kisses and send a voice note of you singing a song.
+            </p>
+        </div>
+    `;
+}
+</script>
+
+</body>
+</html>
